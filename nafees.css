@@ -9,12 +9,15 @@ body {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     color: #e1e1e1;
     line-height: 1.6;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* Navbar Styles */
 .navbar {
     background: rgba(31, 41, 55, 0.95);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
     padding: 1rem 2rem;
     position: fixed;
     width: 100%;
@@ -869,7 +872,15 @@ html {
     border-radius: 50%;
     background: linear-gradient(45deg, #8b5cf6, #6366f1);
     opacity: 0.3;
-    animation: floatingAnimation 6s infinite ease-in-out;
+    filter: blur(2px);
+    animation: floatingAnimation 8s infinite ease-in-out;
+    transition: all 0.5s ease;
+}
+
+.shape:hover {
+    opacity: 0.5;
+    filter: blur(0);
+    transform: scale(1.1);
 }
 
 .shape-1 {
@@ -897,11 +908,25 @@ html {
 }
 
 @keyframes floatingAnimation {
-    0%, 100% {
-        transform: translateY(0) rotate(0deg);
+    0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    }
+    25% {
+        transform: translateY(-20px) rotate(5deg) scale(1.1);
+        box-shadow: 0 20px 30px rgba(139, 92, 246, 0.4);
     }
     50% {
-        transform: translateY(-20px) rotate(10deg);
+        transform: translateY(-15px) rotate(-3deg) scale(1.05);
+        box-shadow: 0 15px 25px rgba(139, 92, 246, 0.5);
+    }
+    75% {
+        transform: translateY(-10px) rotate(2deg) scale(1.02);
+        box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
     }
 }
 
@@ -1132,23 +1157,38 @@ html {
 @keyframes gradientFlow {
     0% {
         background-position: 0% 50%;
+        background-size: 200% 200%;
     }
     50% {
         background-position: 100% 50%;
+        background-size: 250% 250%;
     }
     100% {
         background-position: 0% 50%;
+        background-size: 200% 200%;
     }
 }
 
 @keyframes letterFloat {
-    0%, 100% {
+    0% {
         transform: translateY(0) rotate(0deg);
         text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
     }
+    25% {
+        transform: translateY(-15px) rotate(5deg);
+        text-shadow: 0 15px 35px rgba(139, 92, 246, 0.5);
+    }
     50% {
-        transform: translateY(-10px) rotate(3deg);
-        text-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
+        transform: translateY(-10px) rotate(-3deg);
+        text-shadow: 0 10px 30px rgba(139, 92, 246, 0.6);
+    }
+    75% {
+        transform: translateY(-5px) rotate(2deg);
+        text-shadow: 0 5px 25px rgba(139, 92, 246, 0.4);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg);
+        text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
     }
 }
 
@@ -1269,13 +1309,25 @@ html {
 }
 
 @keyframes aboutLetterFloat {
-    0%, 100% {
-        transform: translateY(0) rotate(0deg);
+    0% {
+        transform: translateY(0) rotate(0deg) scale(1);
         text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
     }
+    25% {
+        transform: translateY(-12px) rotate(3deg) scale(1.1);
+        text-shadow: 0 12px 32px rgba(139, 92, 246, 0.5);
+    }
     50% {
-        transform: translateY(-10px) rotate(3deg);
-        text-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
+        transform: translateY(-8px) rotate(-2deg) scale(1.05);
+        text-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+    }
+    75% {
+        transform: translateY(-4px) rotate(1deg) scale(1.02);
+        text-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
     }
 }
 
@@ -1342,11 +1394,25 @@ html {
 }
 
 @keyframes floatingParticle {
-    0%, 100% {
-        transform: translate(0, 0) rotate(0deg);
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.2;
+    }
+    25% {
+        transform: translate(15px, -15px) rotate(90deg) scale(1.2);
+        opacity: 0.3;
     }
     50% {
-        transform: translate(20px, -20px) rotate(180deg);
+        transform: translate(20px, -20px) rotate(180deg) scale(1);
+        opacity: 0.2;
+    }
+    75% {
+        transform: translate(15px, -5px) rotate(270deg) scale(1.2);
+        opacity: 0.3;
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg) scale(1);
+        opacity: 0.2;
     }
 }
 
@@ -1390,5 +1456,422 @@ html {
 @media (max-width: 480px) {
     .about-name span {
         font-size: 2.2rem;
+    }
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #8b5cf6, #6366f1, #a855f7);
+    background-size: 200% 100%;
+    z-index: 9999;
+    transition: width 0.3s ease;
+    animation: gradientMove 3s linear infinite;
+    box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3);
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Hide default scrollbar across browsers */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: none;
+}
+
+/* For IE/Edge */
+* {
+    -ms-overflow-style: none;
+}
+
+/* Ensure smooth scrolling on iOS */
+body {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent horizontal scroll */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Standardized Animation Variables */
+:root {
+    --animation-timing: 0.3s;
+    --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+    --hover-transform: translateY(-5px);
+    --hover-shadow: 0 10px 20px rgba(139, 92, 246, 0.2);
+    --transition-all: all var(--animation-timing) var(--animation-easing);
+}
+
+/* Standard Entrance Animations */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.6s var(--animation-easing) forwards;
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 0.6s var(--animation-easing) forwards;
+}
+
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: slideInLeft 0.6s var(--animation-easing) forwards;
+}
+
+.slide-in-right {
+    opacity: 0;
+    transform: translateX(30px);
+    animation: slideInRight 0.6s var(--animation-easing) forwards;
+}
+
+/* Standard Hover Transitions */
+.hover-lift {
+    transition: var(--transition-all);
+}
+
+.hover-lift:hover {
+    transform: var(--hover-transform);
+    box-shadow: var(--hover-shadow);
+}
+
+/* Standard Animation Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Apply standardized animations to existing elements */
+.navbar {
+    animation: slideInTop 0.5s var(--animation-easing) forwards;
+}
+
+.nav-links a {
+    transition: var(--transition-all);
+}
+
+.nav-links a:hover {
+    transform: var(--hover-transform);
+}
+
+.profile-image {
+    transition: var(--transition-all);
+}
+
+.profile-image:hover {
+    transform: scale(1.05) var(--hover-transform);
+    box-shadow: var(--hover-shadow);
+}
+
+.btn {
+    transition: var(--transition-all);
+}
+
+.btn:hover {
+    transform: var(--hover-transform);
+    box-shadow: var(--hover-shadow);
+}
+
+/* Card Animations */
+.skill-item,
+.project-card,
+.feature-card,
+.about-card {
+    transition: var(--transition-all);
+}
+
+.skill-item:hover,
+.project-card:hover,
+.feature-card:hover,
+.about-card:hover {
+    transform: var(--hover-transform);
+    box-shadow: var(--hover-shadow);
+}
+
+/* Section Entrance Animations */
+.hero-content > * {
+    opacity: 0;
+}
+
+.hero-content .profile-container {
+    animation: slideUp 0.6s var(--animation-easing) forwards;
+}
+
+.hero-content .text-container {
+    animation: slideUp 0.6s var(--animation-easing) 0.2s forwards;
+}
+
+.hero-content .cta-container {
+    animation: slideUp 0.6s var(--animation-easing) 0.4s forwards;
+}
+
+/* Skills Section Animation */
+.skills-grid {
+    opacity: 0;
+    animation: fadeIn 0.6s var(--animation-easing) forwards;
+}
+
+.skills-grid .skill-item {
+    opacity: 0;
+    animation: slideUp 0.6s var(--animation-easing) forwards;
+}
+
+.skills-grid .skill-item:nth-child(1) { animation-delay: 0.1s; }
+.skills-grid .skill-item:nth-child(2) { animation-delay: 0.2s; }
+.skills-grid .skill-item:nth-child(3) { animation-delay: 0.3s; }
+.skills-grid .skill-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* Projects Section Animation */
+.projects-grid .project-card {
+    opacity: 0;
+    animation: slideInRight 0.6s var(--animation-easing) forwards;
+}
+
+.projects-grid .project-card:nth-child(odd) {
+    animation-name: slideInLeft;
+}
+
+.projects-grid .project-card:nth-child(1) { animation-delay: 0.1s; }
+.projects-grid .project-card:nth-child(2) { animation-delay: 0.2s; }
+.projects-grid .project-card:nth-child(3) { animation-delay: 0.3s; }
+.projects-grid .project-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Section Title Animations */
+.section-title {
+    opacity: 0;
+    animation: slideUp 0.6s var(--animation-easing) forwards;
+}
+
+/* Intersection Observer Classes */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: var(--transition-all);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Section Title Animations */
+.animated-title {
+    position: relative;
+    display: inline-block;
+    padding: 0 10px;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: titleFadeIn 0.8s ease forwards;
+}
+
+.animated-title h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(
+        45deg,
+        #8b5cf6,
+        #6366f1,
+        #a855f7,
+        #8b5cf6
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientFlow 6s linear infinite;
+}
+
+.animated-title::before,
+.animated-title::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: -5px;
+    background: linear-gradient(45deg, #8b5cf6, #6366f1);
+    transition: width 0.6s ease;
+}
+
+.animated-title::before {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.animated-title::after {
+    right: 50%;
+    transform: translateX(50%);
+}
+
+.animated-title:hover::before,
+.animated-title:hover::after {
+    width: 50%;
+}
+
+.animated-title .accent-dot {
+    display: inline-block;
+    color: #8b5cf6;
+    animation: dotPulse 2s infinite;
+}
+
+/* Subtitle animation */
+.animated-subtitle {
+    font-size: 1.1rem;
+    color: #9ca3af;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: subtitleFadeIn 0.8s ease forwards 0.3s;
+}
+
+/* Letter animation for titles */
+.animated-title .letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: letterFadeIn 0.5s ease forwards;
+}
+
+/* Add animation delays for each letter */
+.animated-title .letter:nth-child(1) { animation-delay: 0.1s; }
+.animated-title .letter:nth-child(2) { animation-delay: 0.2s; }
+.animated-title .letter:nth-child(3) { animation-delay: 0.3s; }
+.animated-title .letter:nth-child(4) { animation-delay: 0.4s; }
+.animated-title .letter:nth-child(5) { animation-delay: 0.5s; }
+.animated-title .letter:nth-child(6) { animation-delay: 0.6s; }
+.animated-title .letter:nth-child(7) { animation-delay: 0.7s; }
+.animated-title .letter:nth-child(8) { animation-delay: 0.8s; }
+.animated-title .letter:nth-child(9) { animation-delay: 0.9s; }
+.animated-title .letter:nth-child(10) { animation-delay: 1.0s; }
+
+/* New animation keyframes */
+@keyframes titleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes subtitleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes letterFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) rotate(10deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+@keyframes dotPulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Intersection Observer Animation */
+.title-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.title-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .animated-title h2 {
+        font-size: 2.2rem;
+    }
+    
+    .animated-subtitle {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .animated-title h2 {
+        font-size: 1.8rem;
+    }
+    
+    .animated-subtitle {
+        font-size: 0.9rem;
     }
 }
